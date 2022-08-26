@@ -26,6 +26,9 @@ class _HomePageState extends State<HomePage> {
   double amoWidth = 0.1;
   double amoHeight = 0.1;
 
+  int score = 0;
+  bool isHaveScore = false;
+
   // barrier variable
   static List<double> barrierX = [2, 2 + 1.5, 5];
   static double barrierWidth = 0.5;
@@ -49,7 +52,7 @@ class _HomePageState extends State<HomePage> {
       //********** this code to control character movement ******//
       height = gravity * time * time + velocity * time;
       //********** this code to control character movement ******//
-      debugPrint(height.toString());
+      //debugPrint(height.toString());
       setState(() {
         amoYaxis = initialHeight - height;
       });
@@ -85,7 +88,7 @@ class _HomePageState extends State<HomePage> {
     for (int i = 0; i < barrierX.length; i++) {
       setState(() {
         barrierX[i] -= 0.015;
-        debugPrint('barrierX[i] = ' + barrierX.toString());
+        //debugPrint('barrierX[i] = ' + barrierX.toString());
       });
 
       if (barrierX[i] < -2.5) {
@@ -150,15 +153,25 @@ class _HomePageState extends State<HomePage> {
       // height = 0;
       // initialHeight = 0;
       // time = 0;
+      score = 0;
       return true;
     }
 
     for (int i = 0; i < barrierX.length; i++) {
+      debugPrint('barrierX.length = ' + barrierX[i].toString());
       if (barrierX[i] <= amoWidth &&
           barrierX[i] + barrierWidth >= -amoWidth &&
           (amoYaxis <= -1 + barrierHeight[i][0] ||
               amoYaxis + amoHeight >= 1 - barrierHeight[i][1])) {
+        score = 0;
         return true;
+      } else {
+        if (barrierX[i] + barrierWidth >= -amoWidth || isHaveScore == true) {
+        } else {
+          score += 10;
+          debugPrint('Score : ' + score.toString());
+          isHaveScore = false;
+        }
       }
     }
 
