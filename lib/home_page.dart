@@ -26,12 +26,8 @@ class _HomePageState extends State<HomePage> {
   double amoWidth = 0.1;
   double amoHeight = 0.1;
 
-  int score = 0;
-  bool isHaveScore = false;
-
   // barrier variable
   static List<double> barrierX = [2, 3.5, 5];
-
   static double barrierWidth = 0.5;
   List<List<double>> barrierHeight = [
     //[topHeight, bottomHeight]
@@ -72,13 +68,6 @@ class _HomePageState extends State<HomePage> {
       //      barrierXTwo -= 0.025;
       //    }
       //  });
-      debugPrint(isHaveScore.toString());
-      if (amoHaveScore()) {
-        score += 10;
-        //isHaveScore = true;
-        //return false;
-        debugPrint('Scoreeeeeeeeeeeeeeee =' + score.toString());
-      }
 
       if (amoIsDead()) {
         timer.cancel();
@@ -92,24 +81,6 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  bool amoHaveScore() {
-    for (int i = 0; i < barrierX.length; i++) {
-      if (barrierX[i] + barrierWidth >= -amoWidth) {
-        //debugPrint('Array [0] = ' + barrierX.elementAt(0).toString() + '');
-        //debugPrint('amoWidth = ' + amoWidth.toString());
-        // score = 0;
-
-        return false;
-      } else if (isHaveScore = false) {
-        debugPrint(isHaveScore.toString());
-        isHaveScore = true;
-        return true;
-      }
-    }
-
-    return false;
-  }
-
   bool amoIsDead() {
     //Check Amo on Screen if not dead
     //if hit over top or bottom of screen
@@ -121,7 +92,7 @@ class _HomePageState extends State<HomePage> {
       // height = 0;
       // initialHeight = 0;
       // time = 0;
-      score = 0;
+
       return true;
     }
 
@@ -130,7 +101,6 @@ class _HomePageState extends State<HomePage> {
           barrierX[i] + barrierWidth >= -amoWidth &&
           (amoYaxis <= -1 + barrierHeight[i][0] ||
               amoYaxis + amoHeight >= 1 - barrierHeight[i][1])) {
-        score = 0;
         return true;
       }
     }
